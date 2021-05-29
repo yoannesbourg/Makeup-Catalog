@@ -1,4 +1,10 @@
 import { Context } from 'node:vm'
+import { Container, Section, Title, ProductListContainer, Product, Image } from '../../components/Styled-Components/Styled-Components'
+import * as React from "react"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import Slider from "react-slick"
+
 
 export const getStaticPaths = async () => {
     const res = await fetch(
@@ -29,15 +35,47 @@ export const getStaticProps = async (context: Context) => {
 }
 
 const Details = ({ product }: { product: Product[] }) => {
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+    }
+
+
     console.log(product[0])
     return (
-        <div>
-            <h1>{product[0].name}</h1>
-            <h2>{product[0].category}</h2>
-            <p>{product[0].description}</p>
-            <img src={product[0].api_featured_image} />
-            <h3>{product[0].price + product[0].price_sign}</h3>
-        </div>
+        <Container>
+            <Section>
+                <h1>{product[0].name}</h1>
+                <h2>{product[0].category}</h2>
+                <h3>{product[0].price + product[0].price_sign}</h3>
+            </Section>
+
+
+            <Section>
+                <Slider {...settings}>
+                    <div>
+                        <Image src={product[0].api_featured_image} />
+                    </div>
+                    <div>
+                        <Image src={product[0].api_featured_image} />
+                    </div>
+                    <div>
+                        <Image src={product[0].api_featured_image} />
+                    </div>
+                </Slider>
+            </Section>
+
+            <Section>
+                <p>{product[0].description}</p>
+            </Section>
+
+
+
+        </Container>
     )
 }
 

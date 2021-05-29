@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import styled from 'styled-components'
 
 
@@ -8,21 +7,21 @@ const ProductCard = (product: Product) => {
     }
 
     return (
-        <Link href={`/products/${product.id}`}>
-            <Wrapper>
-                <Image src={product.api_featured_image} />
-                <div>
-                    <Title>{product.name}</Title>
-                    <Info><strong>{product.category}</strong></Info>
-                    <Info>{product.brand}</Info>
-                    <Info>{product.product_type}</Info>
-                    <Price>
-                        {product.price},{product.price_sign}
-                    </Price>
 
-                </div>
-            </Wrapper>
-        </Link>
+        <Wrapper>
+            <Image src={product.api_featured_image} />
+            <div>
+                <Title>{product.name}</Title>
+                <Info><strong>{product.category}</strong></Info>
+                <Info>{product.brand}</Info>
+                <Info>{product.product_type}</Info>
+                <Price>
+                    {product.price},{product.price_sign}
+                </Price>
+
+            </div>
+        </Wrapper>
+
     )
 }
 
@@ -60,6 +59,7 @@ const Image = styled.img`
 const Wrapper = styled.div`
   margin: 24px 16px 0 0;
   max-width: 320px;
+  cursor: pointer;
 `
 export interface Product {
     api_featured_image: string

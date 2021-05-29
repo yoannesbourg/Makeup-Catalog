@@ -1,8 +1,10 @@
 import { ChangeEvent, useState } from 'react'
 import Link from 'next/link'
-import styled from 'styled-components'
+
 import ProductCard from '../components/ProductCard'
 import Searchbar from '../components/Searchbar'
+
+import { Container, Section, Title, ProductListContainer, Product } from '../components/Styled-Components/Styled-Components'
 
 export default function Home({ productList }: { productList: Product[] }) {
 
@@ -66,37 +68,7 @@ export default function Home({ productList }: { productList: Product[] }) {
     </Container>
   )
 }
-const Container = styled.div`
-  width: 90%;
-  text-align: center;
-  margin: 0 auto;
-`
 
-const Section = styled.section`
-  margin-top: 36px;
-`
-
-const Title = styled.h1`
-  color: #505050;
-  font-size: 48px;
-  font-family: Roboto, sans-serif;
-`
-
-const ProductListContainer = styled.div`
-  margin-top: 36px;
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-  flex-wrap: wrap;
-  justify-content: center;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`
-
-const Product = styled.div`
-background-color: #ff000024;
-`
 export const getStaticProps = async () => {
   const res = await fetch(
     'http://makeup-api.herokuapp.com/api/v1/products.json',
