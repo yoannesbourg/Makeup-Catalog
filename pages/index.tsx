@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react'
+import Link from 'next/link'
 import styled from 'styled-components'
 import ProductCard from '../components/ProductCard'
 import Searchbar from '../components/Searchbar'
@@ -54,9 +55,9 @@ export default function Home({ productList }: { productList: Product[] }) {
       <ProductListContainer>
         {list.map(product => {
           return (
-            <>
+            <Link href={`/products/${product.id}`}>
               <ProductCard {...product} />
-            </>
+            </Link>
 
           )
         })}
