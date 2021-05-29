@@ -1,5 +1,5 @@
 import { Context } from 'node:vm'
-import { Container, Section, Title, ProductListContainer, Product, Image } from '../../components/Styled-Components/Styled-Components'
+import { Container, Section, Product, Image } from '../../components/Styled-Components/Styled-Components'
 import * as React from "react"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
