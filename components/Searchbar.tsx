@@ -1,7 +1,25 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import useDebounce from '../hooks/useDebounce'
+
+const Searchbar = ({ handleSearch }: { handleSearch: any }) => {
+    const [value, setValue] = useState<string>('')
+    const debouncedValue = useDebounce<string>(value, 500)
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value)
+    }
+    useEffect(() => {
+        handleSearch(value)
+    }, [debouncedValue])
+    return (
+        <div>
+            <Input type="text" value={value} onChange={handleChange} />
+        </div>
+    )
+}
+
+export default Searchbar
 
 const Input = styled.input`
   border: 1px solid #2222224d;
@@ -13,22 +31,3 @@ const Input = styled.input`
     box-shadow: 0px 0px 2px red;
   }
 `
-
-const Searchbar = () => {
-    const [value, setValue] = useState<string>('')
-    const debouncedValue = useDebounce<string>(value, 500)
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value)
-    }
-    useEffect(() => {
-        // Do fetch here...
-        // Triggers when "debouncedValue" changes
-    }, [debouncedValue])
-    return (
-        <div>
-            <Input type="text" value={value} onChange={handleChange} />
-        </div>
-    )
-}
-
-export default Searchbar

@@ -12,9 +12,10 @@ const ProductCard = (product: Product) => {
             <Wrapper>
                 <Image src={product.api_featured_image} />
                 <div>
-                    <Title>{product.category}</Title>
-                    {product.brand}
-                    {product.product_type}
+                    <Title>{product.name}</Title>
+                    <Info><strong>{product.category}</strong></Info>
+                    <Info>{product.brand}</Info>
+                    <Info>{product.product_type}</Info>
                     <Price>
                         {product.price},{product.price_sign}
                     </Price>
@@ -27,10 +28,19 @@ const ProductCard = (product: Product) => {
 
 export default ProductCard
 const Title = styled.h3`
+  font-family: Roboto, sans-serif;
   font-size: 1.6em;
   text-align: center;
   color: palevioletred;
   margin: 16px 0 0 0;
+`
+
+const Info = styled.p`
+  color: #505050;
+  font-family: Roboto, sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  margin: 8px 0 0 0;
 `
 
 const Price = styled.p`

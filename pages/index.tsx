@@ -15,7 +15,7 @@ export default function Home({ productList }: { productList: Product[] }) {
 
   //filters
   const brandFilter = deduplicate(productList.map(product => product.category))
-  const priceFilter = deduplicate(productList.map(product => product.price))
+
 
   const filter = (e: ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value)
@@ -26,6 +26,11 @@ export default function Home({ productList }: { productList: Product[] }) {
     setList(productList.sort((a, b) => (a.price > b.price ? 1 : -1)))
   }
 
+  const search = (value: string) => {
+
+    setList(productList.filter(product => product.name.toLowerCase().startsWith(value.toLowerCase())))
+  }
+
   return (
     <Container>
       <Section>
@@ -33,7 +38,7 @@ export default function Home({ productList }: { productList: Product[] }) {
       </Section>
 
       <Section>
-        <Searchbar />
+        <Searchbar handleSearch={search} />
       </Section>
 
       <Section>
@@ -71,8 +76,8 @@ const Section = styled.section`
 `
 
 const Title = styled.h1`
-  color: #202020;
-  font-size: 50px;
+  color: #505050;
+  font-size: 48px;
   font-family: Roboto, sans-serif;
 `
 
