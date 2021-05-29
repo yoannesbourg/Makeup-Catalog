@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 import ProductCard from '../components/ProductCard'
+import Searchbar from '../components/Searchbar'
 
 export default function Home({ productList }: { productList: Product[] }) {
 
@@ -29,6 +30,10 @@ export default function Home({ productList }: { productList: Product[] }) {
     <Container>
       <Section>
         <Title>Makeup</Title>
+      </Section>
+
+      <Section>
+        <Searchbar />
       </Section>
 
       <Section>
