@@ -33,8 +33,8 @@ export const Product = styled.div`
 `
 
 export const Image = styled.img`
-    width: 280px;
-    height: 280px;
+    width: ${props => props.width};
+    height: ${props => props.width};
     objet-fit: cover;
 }
 `

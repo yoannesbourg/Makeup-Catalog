@@ -12,7 +12,8 @@ import {
   Product,
   Section,
   Info,
-  Price
+  Price,
+  Image
 } from '../../components/Styled-Components/Styled-Components'
 
 export const getStaticPaths = async () => {
@@ -31,7 +32,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-const getStaticProps = async (context: Context) => {
+export const getStaticProps = async (context: Context) => {
   const id = context.params.id
   const res = await fetch(
     'http://makeup-api.herokuapp.com/api/v1/products.json',
@@ -60,13 +61,13 @@ const Details = ({ product }: { product: Product[] }) => {
           <LeftColumn>
             <Slider {...settings}>
               <div>
-                <img src={product[0].api_featured_image} />
+                <ProductPageImage src={product[0].api_featured_image} width={'100%'} />
               </div>
               <div>
-                <img src={product[0].api_featured_image} />
+                <ProductPageImage src={product[0].api_featured_image} />
               </div>
               <div>
-                <img src={product[0].api_featured_image} />
+                <ProductPageImage src={product[0].api_featured_image} />
               </div>
             </Slider>
           </LeftColumn>
@@ -85,39 +86,30 @@ const Details = ({ product }: { product: Product[] }) => {
 
 export default Details
 
-const ProductPageLayout = styled.div`
+const ProductPageImage = styled.img`
+  width: 100%;
+  object-fit: cover;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
+`
 
+const ProductPageLayout = styled.div`
+display:flex;
 `
 
 const LeftColumn = styled.div`
-
+  width: 50%;
   background-color: green;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 const RightColumn = styled.div`
-
+  width: 50%;
   backgroun-color: red;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
-export interface Product {
-  api_featured_image: string
-  brand: string
-  category: string
-  created_at: string
-  currency: string
-  description: string
-  id: number
-  image_link: string
-  name: string
-  price: string
-  price_sign: string
-  product_api_url: string
-  product_colors?: {
-    colour_name: string
-    hex_value: string
-  }[]
-  product_link: string
-  product_type: string
-  rating: null
-  tag_list?: string[]
-  updated_at: string
-  website_link: string
-}
