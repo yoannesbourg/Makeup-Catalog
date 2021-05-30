@@ -15,6 +15,7 @@ const ProductCard = (product: Product) => {
         </Info>
         <Info>{product.brand}</Info>
         <Info>{product.product_type}</Info>
+        <Info>{product.rating || 'null'}</Info>
         <Price>
           {product.price || '0.0'},{product.price_sign}
         </Price>
