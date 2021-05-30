@@ -38,3 +38,23 @@ export const Image = styled.img`
     objet-fit: cover;
 }
 `
+export const Info = styled.p`
+  color: #505050;
+  font-family: Roboto, sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  margin: 8px 0 0 0;
+`
+
+export const Price = styled.p`
+  font-size: 1em;
+  text-align: center;
+  color: palevioletred;
+  margin: 8px 0 0 0;
+`
+
+
+export const Wrapper = styled.div`
+  margin: 24px 16px 0 0;
+  max-width: 320px;
+`

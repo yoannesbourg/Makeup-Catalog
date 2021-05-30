@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import { IProduct } from '../models/Product'
 
-const ProductCard = (product: Product) => {
+const ProductCard = (product: IProduct) => {
   if (!product) {
     return null
   }
@@ -15,7 +16,7 @@ const ProductCard = (product: Product) => {
         </Info>
         <Info>{product.brand}</Info>
         <Info>{product.product_type}</Info>
-        <Info>{product.rating || 'null'}</Info>
+        <Info>{product.rating || null}</Info>
         <Price>
           {product.price || '0.0'},{product.price_sign}
         </Price>
@@ -59,27 +60,3 @@ const Wrapper = styled.div`
   margin: 24px 16px 0 0;
   max-width: 320px;
 `
-export interface Product {
-  api_featured_image: string
-  brand: string
-  category: string
-  created_at: string
-  currency: string
-  description: string
-  id: number
-  image_link: string
-  name: string
-  price: string
-  price_sign: string
-  product_api_url: string
-  product_colors?: {
-    colour_name: string
-    hex_value: string
-  }[]
-  product_link: string
-  product_type: string
-  rating: null
-  tag_list?: string[]
-  updated_at: string
-  website_link: string
-}

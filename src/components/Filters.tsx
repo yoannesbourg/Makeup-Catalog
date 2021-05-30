@@ -2,39 +2,39 @@ import { ChangeEvent, useState } from 'react'
 
 import { Section } from '../components/Styled-Components/Styled-Components'
 import { deduplicate } from '../helpers/deduplicate'
-
+import { IProduct } from '../models/Product'
 export interface FiltersInterface {
-  productList: Product[]
+  productList: IProduct[]
   setList: (newState: any) => void
-  list: Product[]
+  list: IProduct[]
 }
 
 export default function Filters({
-  productList,
+  productList: initialList,
   setList,
-  list,
+  list: filteredList,
 }: FiltersInterface) {
   const [checkboxValues, setCheckboxValues] = useState<Record<string, boolean>>(
     {},
   )
-  const [isFiltered, setFilter] = useState([''])
+  const [isFiltered, setFilter] = useState<string[]>([])
 
   //filters dropwdown content
-  const brandFilter = deduplicate(productList.map(product => product.category))
+  const brandFilter = deduplicate(initialList.map(product => product.category).filter(category => !!category))
   const typeFilter = deduplicate(
-    productList.map(product => product.product_type),
+    initialList.map(product => product.product_type),
   )
 
   //Category
   const filterCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value)
     if (e.target.value === 'Category') {
-      setList(productList)
+      setList(initialList)
     } else {
       const listToFilter =
-        !isFiltered.includes('Category') && isFiltered.length > 0
-          ? list
-          : productList
+        !isFiltered.includes('Category')
+          ? filteredList
+          : initialList
 
       setList(
         listToFilter.filter(product => product.category === e.target.value),
@@ -48,12 +48,12 @@ export default function Filters({
   const filterType = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value)
     if (e.target.value === 'Product type') {
-      setList(productList)
+      setList(initialList)
     } else {
       const listToFilter =
-        !isFiltered.includes('Type') && isFiltered.length > 0
-          ? list
-          : productList
+        !isFiltered.includes('Type')
+          ? filteredList
+          : initialList
       setList(
         listToFilter.filter(
           product =>
@@ -62,32 +62,41 @@ export default function Filters({
         ),
       )
       !isFiltered.includes('Type') && setFilter(prev => [...prev, 'Type'])
+
     }
   }
-
+  console.log(isFiltered)
   //Price
   const filterPrice = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value)
     if (e.target.value === 'Ascending') {
-      setList(productList.sort((a, b) => (a.price > b.price ? 1 : -1)))
+      setList(initialList.sort((a, b) => Number(a.price) - Number(b.price)))
     } else if (e.target.value === 'Descending') {
-      setList(productList.sort((a, b) => (a.price < b.price ? 1 : -1)))
+      setList(initialList.sort((a, b) => Number(b.price) - Number(a.price)))
     } else if ('Default') {
-      setList(productList)
+      setList(initialList)
     }
   }
 
   //  Ratings
   const filterRating = (rating: string) => {
-    console.log(typeof rating)
     if (rating === 'All') {
-      setList(productList)
+      setList(initialList)
     }
-    setList(
-      productList.filter(
-        product => Math.floor(product.rating) === Number(rating),
-      ),
-    )
+    else {
+      setList(
+        initialList
+          .filter(
+            product => {
+              if (product.rating !== null) {
+                Math.floor(product.rating) === Number(rating)
+              } else {
+                return false
+              }
+            },
+          ),
+      )
+    }
   }
 
   const handleRatingChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -214,29 +223,4 @@ export default function Filters({
       </label>
     </Section>
   )
-}
-
-export interface Product {
-  api_featured_image: string
-  brand: string
-  category: string
-  created_at: string
-  currency: string
-  description: string
-  id: number
-  image_link: string
-  name: string
-  price: string
-  price_sign: string
-  product_api_url: string
-  product_colors?: {
-    colour_name: string
-    hex_value: string
-  }[]
-  product_link: string
-  product_type: string
-  rating: number
-  tag_list?: string[]
-  updated_at: string
-  website_link: string
 }
