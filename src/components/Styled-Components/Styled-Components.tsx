@@ -29,7 +29,7 @@ export const ProductListContainer = styled.div`
 `
 
 export const Product = styled.div`
-background-color: #ff000024;
+  background-color: #ff000024;
 `
 
 export const Image = styled.img`
