@@ -53,7 +53,6 @@ export const Price = styled.p`
   margin: 8px 0 0 0;
 `
 
-
 export const Wrapper = styled.div`
   margin: 24px 16px 0 0;
   max-width: 320px;

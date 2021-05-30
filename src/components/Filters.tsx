@@ -2,66 +2,126 @@ import { ChangeEvent, useState } from 'react'
 
 import { Section } from '../components/Styled-Components/Styled-Components'
 import { deduplicate } from '../helpers/deduplicate'
-import { IProduct } from '../models/Product'
 import { IFilters } from '../models/Filters'
-import { EEXIST } from 'node:constants'
+import { IProduct } from '../models/Product'
 
 export interface FiltersInterface {
-  initialFilters: IFilters,
-  onFilterChange: (filters: IFilters) => void,
+  initialFilters: IFilters
+  onFilterChange: (filters: IFilters) => void
   productList: IProduct[]
 }
 
 export default function Filters({
   initialFilters,
   onFilterChange,
-  productList
+  productList,
 }: FiltersInterface) {
+  const [category, setCategory] = useState(initialFilters.category)
+  const [price, setPrice] = useState(initialFilters.price)
+  const [type, setType] = useState(initialFilters.product_type)
+  const [rating, setRating] = useState(initialFilters.rating)
 
-  const [category, setCategory] = useState<string>('')
-  const [price, setPrice] = useState<string>('Default')
-
-  const categoryFilter = deduplicate(productList.map(product => product.category).filter(category => !!category))
+  const categoryFilter = deduplicate(
+    productList.map(product => product.category).filter(category => !!category),
+  )
+  const typeFilter = deduplicate(
+    productList.map(product => product.product_type),
+  ).filter(category => !!category)
+  const ratings = deduplicate(
+    productList
+      .filter(product => !!product.rating)
+      .map(product => Math.floor(product.rating)),
+  )
 
   const categoryHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+    const categoryFilter =
+      e.target.value === 'All categories' ? false : e.target.value
+    console.log(categoryFilter)
+
     setCategory(e.target.value)
     onFilterChange({
       search: initialFilters.search,
-      category: e.target.value,
-      price: price
+      category: categoryFilter,
+      price: price,
+      product_type: type,
+      rating: rating,
     })
   }
 
   const priceHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    setPrice(e.target.value)
+    const priceOrder = e.target.value === 'Ascending' ? true : false
+    console.log(e.target.value + ' ' + priceOrder)
+    setPrice(priceOrder)
     onFilterChange({
       search: initialFilters.search,
       category: category,
-      price: e.target.value
+      price: priceOrder,
+      product_type: type,
+      rating: rating,
     })
   }
 
+  const typeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+    const typeFilter =
+      e.target.value === 'All products type' ? false : e.target.value
+    setType(e.target.value)
+    onFilterChange({
+      search: initialFilters.search,
+      category: category,
+      price: price,
+      product_type: typeFilter,
+      rating: rating,
+    })
+  }
 
+  const ratingHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+    const ratingFilter =
+      e.target.value === 'All ratings' ? false : Number(e.target.value)
+    setRating(Number(e.target.value))
+    onFilterChange({
+      search: initialFilters.search,
+      category: category,
+      price: price,
+      product_type: type,
+      rating: ratingFilter,
+    })
+  }
 
   return (
     <Section>
-      <select
-        onChange={categoryHandler}
-      >
-        <option selected>Category</option>
-        {categoryFilter.map(brand => (
-          <option key={brand}>{brand}</option>
+      <select onChange={categoryHandler}>
+        <option selected>All categories</option>
+        {categoryFilter.map((brand, i) => (
+          <option key={i}>{brand}</option>
         ))}
       </select>
 
       <select onChange={(e: ChangeEvent<HTMLSelectElement>) => priceHandler(e)}>
-        <option selected>Default</option>
         <option>Ascending</option>
-        <option>Descending</option>
+        <option selected>Descending</option>
       </select>
 
+      <select
+        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+          typeHandler(e)
+        }}
+      >
+        <option>All products type</option>
+        {typeFilter.map((type, i) => (
+          <option key={i}>{type}</option>
+        ))}
+      </select>
 
+      <select
+        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+          ratingHandler(e)
+        }}
+      >
+        <option selected>All ratings</option>
+        {ratings.map(rating => (
+          <option key={rating}>{rating}</option>
+        ))}
+      </select>
     </Section>
   )
-
 }

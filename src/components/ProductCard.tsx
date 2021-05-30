@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { IProduct } from '../models/Product'
 
 const ProductCard = (product: IProduct) => {

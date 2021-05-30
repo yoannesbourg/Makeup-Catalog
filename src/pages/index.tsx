@@ -11,49 +11,51 @@ import {
   Section,
   Title,
 } from '../components/Styled-Components/Styled-Components'
-
-import { IProduct } from '../models/Product'
 import { IFilters } from '../models/Filters'
+import { IProduct } from '../models/Product'
 
 export default function Home({ productList }: { productList: IProduct[] }) {
   const [list, setList] = useState(productList)
-  const [filters, setLfilters] = useState({
-    search: "",
-    category: '',
-    price: 'Default'
+  const [filters, setLfilters] = useState<IFilters>({
+    search: '',
+    category: false,
+    price: false,
+    product_type: false,
+    rating: false,
   })
 
-
   const search = (value: string) => {
-
     setLfilters(prevFilters => ({
       ...prevFilters,
-      search: value.toLowerCase()
+      search: value.toLowerCase(),
     }))
   }
 
-
-
-
-
   useEffect(() => {
     const filteredList = productList
-      .filter(product =>
-        product.name.toLowerCase().includes(filters.search),
+      .filter(product => product.name.toLowerCase().includes(filters.search))
+      .sort((a, b) =>
+        filters.price
+          ? Number(a.price) - Number(b.price)
+          : Number(b.price) - Number(a.price),
       )
-      .filter(product => product.category === filters.category)
-      .sort((a, b) => Number(b.price) - Number(a.price))
-    // .filter(searchFilter)
-    // .filter(searchFilter)
-    // .filter(searchFilter)
+      .filter(product =>
+        !filters.category ? product : product.category === filters.category,
+      )
+      .filter(product =>
+        !filters.product_type
+          ? product
+          : product.product_type === filters.product_type,
+      )
+      .filter(product =>
+        !filters.rating ? product : product.rating === filters.rating,
+      )
 
     setList(filteredList)
   }, [filters])
 
   const handleFilterChanges = (filters: IFilters) => {
-    console.log(filters)
     setLfilters(filters)
-
   }
 
   return (
@@ -67,8 +69,12 @@ export default function Home({ productList }: { productList: IProduct[] }) {
       </Section>
 
       {/* <Filters productList={productList} setList={handleState} list={list} /> */}
-      <Filters onFilterChange={handleFilterChanges} initialFilters={filters} productList={productList} />
-
+      <Filters
+        onFilterChange={handleFilterChanges}
+        initialFilters={filters}
+        productList={productList}
+      />
+      <p>Products ({list.length})</p>
       <ProductListContainer>
         {list.map(product => (
           <Link href={`/products/${product.id}`} key={product.id}>

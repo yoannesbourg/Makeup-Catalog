@@ -1,19 +1,18 @@
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import styled from 'styled-components'
 
 import { Context } from 'node:vm'
-
 import Slider from 'react-slick'
+import styled from 'styled-components'
 
 import {
-  Title,
   Container,
-  Product,
-  Section,
+  Image,
   Info,
   Price,
-  Image
+  Product,
+  Section,
+  Title,
 } from '../../components/Styled-Components/Styled-Components'
 
 export const getStaticPaths = async () => {
@@ -55,13 +54,15 @@ const Details = ({ product }: { product: Product[] }) => {
 
   return (
     <Container>
-
       <Section>
         <ProductPageLayout>
           <LeftColumn>
             <Slider {...settings}>
               <div>
-                <ProductPageImage src={product[0].api_featured_image} width={'100%'} />
+                <ProductPageImage
+                  src={product[0].api_featured_image}
+                  width={'100%'}
+                />
               </div>
               <div>
                 <ProductPageImage src={product[0].api_featured_image} />
@@ -79,7 +80,6 @@ const Details = ({ product }: { product: Product[] }) => {
           </RightColumn>
         </ProductPageLayout>
       </Section>
-
     </Container>
   )
 }
@@ -96,7 +96,7 @@ const ProductPageImage = styled.img`
 `
 
 const ProductPageLayout = styled.div`
-display:flex;
+  display: flex;
 `
 
 const LeftColumn = styled.div`
