@@ -1,16 +1,18 @@
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-
-import * as React from 'react'
+import styled from 'styled-components'
 
 import { Context } from 'node:vm'
+
 import Slider from 'react-slick'
 
 import {
+  Title,
   Container,
-  Image,
   Product,
   Section,
+  Info,
+  Price
 } from '../../components/Styled-Components/Styled-Components'
 
 export const getStaticPaths = async () => {
@@ -29,7 +31,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-export const getStaticProps = async (context: Context) => {
+const getStaticProps = async (context: Context) => {
   const id = context.params.id
   const res = await fetch(
     'http://makeup-api.herokuapp.com/api/v1/products.json',
@@ -50,38 +52,51 @@ const Details = ({ product }: { product: Product[] }) => {
     slidesToScroll: 1,
   }
 
-  console.log(product[0])
   return (
     <Container>
-      <Section>
-        <h1>{product[0].name}</h1>
-        <h2>{product[0].category}</h2>
-        <h3>{product[0].price + product[0].price_sign}</h3>
-      </Section>
 
       <Section>
-        <Slider {...settings}>
-          <div>
-            <Image src={product[0].api_featured_image} />
-          </div>
-          <div>
-            <Image src={product[0].api_featured_image} />
-          </div>
-          <div>
-            <Image src={product[0].api_featured_image} />
-          </div>
-        </Slider>
+        <ProductPageLayout>
+          <LeftColumn>
+            <Slider {...settings}>
+              <div>
+                <img src={product[0].api_featured_image} />
+              </div>
+              <div>
+                <img src={product[0].api_featured_image} />
+              </div>
+              <div>
+                <img src={product[0].api_featured_image} />
+              </div>
+            </Slider>
+          </LeftColumn>
+          <RightColumn>
+            <Title>{product[0].name}</Title>
+            <Info>{product[0].category}</Info>
+            <Price>{product[0].price + product[0].price_sign}</Price>
+            <Info>{product[0].description}</Info>
+          </RightColumn>
+        </ProductPageLayout>
       </Section>
 
-      <Section>
-        <p>{product[0].description}</p>
-      </Section>
     </Container>
   )
 }
 
 export default Details
 
+const ProductPageLayout = styled.div`
+
+`
+
+const LeftColumn = styled.div`
+
+  background-color: green;
+`
+const RightColumn = styled.div`
+
+  backgroun-color: red;
+`
 export interface Product {
   api_featured_image: string
   brand: string
