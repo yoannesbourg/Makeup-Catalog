@@ -26,7 +26,7 @@ export const getStaticPaths = async () => {
   })
   return {
     paths,
-    fallback: false,
+    fallback: true,
   }
 }
 
@@ -43,6 +43,9 @@ export const getStaticProps = async (context: Context) => {
 }
 
 const Details = ({ product }: { product: IProduct[] }) => {
+  if (!product) {
+    return null
+  }
   const settings = {
     dots: true,
     infinite: true,
