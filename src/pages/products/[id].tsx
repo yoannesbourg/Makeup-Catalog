@@ -7,19 +7,18 @@ import styled from 'styled-components'
 
 import {
   Container,
-  Image,
   Info,
   Price,
-  Product,
   Section,
   Title,
 } from '../../components/Styled-Components/Styled-Components'
+import { IProduct } from '../../models/Product'
 
 export const getStaticPaths = async () => {
   const res = await fetch(
     'http://makeup-api.herokuapp.com/api/v1/products.json',
   )
-  const productsList: Product[] = await res.json()
+  const productsList: IProduct[] = await res.json()
   const paths = productsList.map(product => {
     return {
       params: { id: product.id.toString() },
@@ -36,14 +35,14 @@ export const getStaticProps = async (context: Context) => {
   const res = await fetch(
     'http://makeup-api.herokuapp.com/api/v1/products.json',
   )
-  const productsList: Product[] = await res.json()
+  const productsList: IProduct[] = await res.json()
   const product = productsList.filter(product => product.id == id)
   return {
     props: { product },
   }
 }
 
-const Details = ({ product }: { product: Product[] }) => {
+const Details = ({ product }: { product: IProduct[] }) => {
   const settings = {
     dots: true,
     infinite: true,
