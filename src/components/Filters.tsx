@@ -5,7 +5,7 @@ import { deduplicate } from '../helpers/deduplicate'
 import { IProduct } from '../models/Product'
 export interface FiltersInterface {
   productList: IProduct[]
-  setList: (newState: any) => void
+  setList: (newState: IProduct[]) => void
   list: IProduct[]
 }
 
@@ -69,13 +69,20 @@ export default function Filters({
   //Price
   const filterPrice = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value)
+    let sortedList: IProduct[] = []
     if (e.target.value === 'Ascending') {
-      setList(initialList.sort((a, b) => Number(a.price) - Number(b.price)))
+      sortedList = initialList.sort((a, b) => Number(a.price) - Number(b.price))
+      // setList(initialList.sort((a, b) => Number(a.price) - Number(b.price)))
     } else if (e.target.value === 'Descending') {
-      setList(initialList.sort((a, b) => Number(b.price) - Number(a.price)))
+      sortedList = initialList.sort((a, b) => Number(b.price) - Number(a.price))
+
+      // setList(initialList.sort((a, b) => Number(b.price) - Number(a.price)))
     } else if ('Default') {
-      setList(initialList)
+      sortedList = initialList
+      // setList(initialList)
     }
+    console.log(sortedList)
+    setList(sortedList)
   }
 
   //  Ratings

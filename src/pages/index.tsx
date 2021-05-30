@@ -25,7 +25,8 @@ export default function Home({ productList }: { productList: IProduct[] }) {
     )
   }
 
-  const handleState = (newState: any) => {
+  const handleState = (newState: IProduct[]) => {
+    console.log(newState)
     setList(newState)
   }
 
