@@ -23,11 +23,11 @@ export default function Home({ productList }: { productList: Product[] }) {
   //filters
   const brandFilter = deduplicate(productList.map(product => product.category))
 
-  const filter = (e: ChangeEvent<HTMLInputElement>) => {
+  const filter = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value)
     setList(productList.filter(product => product.category === e.target.value))
   }
-  const filterPrice = (e: ChangeEvent<HTMLInputElement>) => {
+  const filterPrice = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value)
     setList(productList.sort((a, b) => (a.price > b.price ? 1 : -1)))
   }
@@ -51,12 +51,18 @@ export default function Home({ productList }: { productList: Product[] }) {
       </Section>
 
       <Section>
-        <select onChange={e => filter(e)}>
+        <select
+          onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+            filter(e)
+          }}
+        >
           {brandFilter.map(brand => (
             <option key={brand}>{brand}</option>
           ))}
         </select>
-        <select onChange={e => filterPrice(e)}>
+        <select
+          onChange={(e: ChangeEvent<HTMLSelectElement>) => filterPrice(e)}
+        >
           <option>Ascending</option>
           <option>Descending</option>
         </select>
