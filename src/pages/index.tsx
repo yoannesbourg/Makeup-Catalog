@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import Link from 'next/link'
 
+import Filters from '../components/Filters'
 import ProductCard from '../components/ProductCard'
 import Searchbar from '../components/Searchbar'
-import Filters from '../components/Filters'
 import {
   Container,
   Product,
@@ -16,13 +16,11 @@ import {
 export default function Home({ productList }: { productList: Product[] }) {
   const [list, setList] = useState(productList)
   const search = (value: string) => {
-
     setList(
       productList.filter(product =>
         product.name.toLowerCase().startsWith(value.toLowerCase()),
       ),
     )
-
   }
 
   const handleState = (newState: any) => {
