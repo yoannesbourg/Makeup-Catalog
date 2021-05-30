@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Link from 'next/link'
 
@@ -13,25 +13,48 @@ import {
 } from '../components/Styled-Components/Styled-Components'
 
 import { IProduct } from '../models/Product'
+import { IFilters } from '../models/Filters'
 
 export default function Home({ productList }: { productList: IProduct[] }) {
   const [list, setList] = useState(productList)
+  const [filters, setLfilters] = useState({
+    search: "",
+    category: '',
+    price: 'Default'
+  })
+
 
   const search = (value: string) => {
-    setList(
-      productList.filter(product =>
-        product.name.toLowerCase().startsWith(value.toLowerCase()),
-      ),
-    )
-  }
 
-  const handleState = (newState: IProduct[]) => {
-    console.log(newState)
-    setList(newState)
+    setLfilters(prevFilters => ({
+      ...prevFilters,
+      search: value.toLowerCase()
+    }))
   }
 
 
 
+
+
+  useEffect(() => {
+    const filteredList = productList
+      .filter(product =>
+        product.name.toLowerCase().includes(filters.search),
+      )
+      .filter(product => product.category === filters.category)
+      .sort((a, b) => Number(b.price) - Number(a.price))
+    // .filter(searchFilter)
+    // .filter(searchFilter)
+    // .filter(searchFilter)
+
+    setList(filteredList)
+  }, [filters])
+
+  const handleFilterChanges = (filters: IFilters) => {
+    console.log(filters)
+    setLfilters(filters)
+
+  }
 
   return (
     <Container>
@@ -43,7 +66,8 @@ export default function Home({ productList }: { productList: IProduct[] }) {
         <Searchbar handleSearch={search} />
       </Section>
 
-      <Filters productList={productList} setList={handleState} list={list} />
+      {/* <Filters productList={productList} setList={handleState} list={list} /> */}
+      <Filters onFilterChange={handleFilterChanges} initialFilters={filters} productList={productList} />
 
       <ProductListContainer>
         {list.map(product => (
