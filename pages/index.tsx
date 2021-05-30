@@ -58,7 +58,7 @@ export default function Home({ productList }: { productList: Product[] }) {
         {list.map(product => {
           return (
             <Link href={`/products/${product.id}`}>
-              <ProductCard {...product} />
+              <a><ProductCard {...product} /></a>
             </Link>
 
           )

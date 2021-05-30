@@ -16,7 +16,7 @@ const ProductCard = (product: Product) => {
                 <Info>{product.brand}</Info>
                 <Info>{product.product_type}</Info>
                 <Price>
-                    {product.price},{product.price_sign}
+                    {product.price || '0.0'},{product.price_sign}
                 </Price>
 
             </div>
@@ -59,7 +59,6 @@ const Image = styled.img`
 const Wrapper = styled.div`
   margin: 24px 16px 0 0;
   max-width: 320px;
-  cursor: pointer;
 `
 export interface Product {
     api_featured_image: string
