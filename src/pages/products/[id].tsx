@@ -58,24 +58,53 @@ const Details = ({ product }: { product: IProduct[] }) => {
           <LeftColumn>
             <Slider {...settings}>
               <div>
-                <ProductPageImage
-                  src={product[0].api_featured_image}
-                  width={'100%'}
-                />
+                {product[0].api_featured_image ?
+                  <ProductPageImage
+                    src={product[0].api_featured_image}
+                    width={'100%'}
+                  />
+                  : null
+                }
               </div>
               <div>
-                <ProductPageImage src={product[0].api_featured_image} />
+                {product[0].api_featured_image ?
+                  <ProductPageImage
+                    src={product[0].api_featured_image}
+                    width={'100%'}
+                  />
+                  : null
+                }
               </div>
               <div>
-                <ProductPageImage src={product[0].api_featured_image} />
+                {product[0].api_featured_image ?
+                  <ProductPageImage
+                    src={product[0].api_featured_image}
+                    width={'100%'}
+                  />
+                  : null
+                }
               </div>
             </Slider>
           </LeftColumn>
           <RightColumn>
-            <Title>{product[0].name}</Title>
-            <Info>{product[0].category}</Info>
-            <Price>{product[0].price + product[0].price_sign}</Price>
-            <Info>{product[0].description}</Info>
+            {
+              product[0].name ?
+                <Title>{product[0].name}</Title>
+                : null
+            }
+
+            {product[0].category ?
+              <Info>{product[0].category}</Info>
+              : null
+            }
+            {product[0].price ?
+              <Price>{product[0].price + product[0].price_sign}</Price>
+              : null
+            }
+            {product[0].description ?
+              <Info>{product[0].description}</Info>
+              : null
+            }
           </RightColumn>
         </ProductPageLayout>
       </Section>
