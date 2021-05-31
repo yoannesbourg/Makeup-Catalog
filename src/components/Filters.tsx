@@ -32,7 +32,7 @@ export default function Filters({
   const ratings = deduplicate(
     productList
       .filter(product => !!product.rating)
-      .map(product => Math.floor(product.rating)),
+      .map(product => Math.floor(product.rating)).sort()
   )
 
   const categoryHandler = (e: ChangeEvent<HTMLSelectElement>) => {

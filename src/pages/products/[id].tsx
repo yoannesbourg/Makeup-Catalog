@@ -53,7 +53,7 @@ const Details = ({ product }: { product: IProduct[] }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   }
-
+  console.log(product)
   return (
     <Container>
       <Section>
@@ -101,13 +101,25 @@ const Details = ({ product }: { product: IProduct[] }) => {
               : null
             }
             {product[0].price ?
-              <Price>{product[0].price + product[0].price_sign}</Price>
+              <Price>{product[0].price + ' €'}</Price>
               : null
             }
             {product[0].description ?
               <Info>{product[0].description}</Info>
               : null
             }
+            <Section>
+
+              {product[0].product_colors?.length ?
+                (<>
+                  <Info>Available colors</Info>
+                  {product[0].product_colors.map(color => (
+                    <ProductColor color={color.hex_value} />
+                  ))}
+                </>)
+                : null
+              }
+            </Section>
           </RightColumn>
         </ProductPageLayout>
       </Section>
@@ -116,6 +128,13 @@ const Details = ({ product }: { product: IProduct[] }) => {
 }
 
 export default Details
+
+const ProductColor = styled.div`
+  width: 40px;
+  height: 40px;
+  margin-top: 16px;
+  background-color: ${props => props.color};
+`
 
 const ProductPageImage = styled.img`
   width: 100%;
@@ -142,8 +161,11 @@ const LeftColumn = styled.div`
   }
 `
 const RightColumn = styled.div`
-  width: 50%;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+    width: 50%;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  `
