@@ -61,64 +61,48 @@ const Details = ({ product }: { product: IProduct[] }) => {
           <LeftColumn>
             <Slider {...settings}>
               <div>
-                {product[0].api_featured_image ?
+                {product[0].api_featured_image ? (
                   <ProductPageImage
                     src={product[0].api_featured_image}
                     width={'100%'}
                   />
-                  : null
-                }
+                ) : null}
               </div>
               <div>
-                {product[0].api_featured_image ?
+                {product[0].api_featured_image ? (
                   <ProductPageImage
                     src={product[0].api_featured_image}
                     width={'100%'}
                   />
-                  : null
-                }
+                ) : null}
               </div>
               <div>
-                {product[0].api_featured_image ?
+                {product[0].api_featured_image ? (
                   <ProductPageImage
                     src={product[0].api_featured_image}
                     width={'100%'}
                   />
-                  : null
-                }
+                ) : null}
               </div>
             </Slider>
           </LeftColumn>
           <RightColumn>
-            {
-              product[0].name ?
-                <Title>{product[0].name}</Title>
-                : null
-            }
+            {product[0].name ? <Title>{product[0].name}</Title> : null}
 
-            {product[0].category ?
-              <Info>{product[0].category}</Info>
-              : null
-            }
-            {product[0].price ?
-              <Price>{product[0].price + ' €'}</Price>
-              : null
-            }
-            {product[0].description ?
+            {product[0].category ? <Info>{product[0].category}</Info> : null}
+            {product[0].price ? <Price>{product[0].price + ' €'}</Price> : null}
+            {product[0].description ? (
               <Info>{product[0].description}</Info>
-              : null
-            }
+            ) : null}
             <Section>
-
-              {product[0].product_colors?.length ?
-                (<>
+              {product[0].product_colors?.length ? (
+                <>
                   <Info>Available colors</Info>
                   {product[0].product_colors.map(color => (
                     <ProductColor color={color.hex_value} />
                   ))}
-                </>)
-                : null
-              }
+                </>
+              ) : null}
             </Section>
           </RightColumn>
         </ProductPageLayout>
@@ -150,7 +134,7 @@ const ProductPageLayout = styled.div`
   height: 100vh;
   align-items: center;
   @media (max-width: 768px) {
-   flex-direction: column;
+    flex-direction: column;
   }
 `
 
@@ -164,8 +148,8 @@ const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-    width: 50%;
-    @media (max-width: 768px) {
-      width: 100%;
-    }
-  `
+  width: 50%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`

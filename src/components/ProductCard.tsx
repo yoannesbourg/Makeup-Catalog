@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-
 import { IProduct } from '../models/Product'
 
 const ProductCard = (product: IProduct) => {
@@ -9,27 +8,15 @@ const ProductCard = (product: IProduct) => {
   }
   return (
     <Wrapper>
-      {product.api_featured_image &&
-        <Image src={product.api_featured_image} />
-      }
+      {product.api_featured_image && <Image src={product.api_featured_image} />}
       <Overlay>
-        {product.category &&
-          <Category>
-            {product.category}
-          </Category>
-        }
+        {product.category && <Category>{product.category}</Category>}
       </Overlay>
       <div>
-        {product.name &&
-          <Title>{product.name}</Title>}
+        {product.name && <Title>{product.name}</Title>}
 
-        {product.rating &&
-
-          <Info>Rating: {product.rating}</Info>
-        }
-        <Price>
-          {product.price ? product.price : '0.0'} €
-        </Price>
+        {product.rating && <Info>Rating: {product.rating}</Info>}
+        <Price>{product.price ? product.price : '0.0'} €</Price>
       </div>
     </Wrapper>
   )
@@ -83,7 +70,7 @@ const Overlay = styled.div`
   top: 0;
   bottom: 0;
   left: 32px;
-  transition: .5s ease;
+  transition: 0.5s ease;
 `
 
 const Wrapper = styled.div`

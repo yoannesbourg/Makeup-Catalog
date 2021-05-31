@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react'
-import styled from 'styled-components'
 
+import styled from 'styled-components'
 
 import { Section } from '../components/Styled-Components/Styled-Components'
 import { deduplicate } from '../helpers/deduplicate'
@@ -32,7 +32,8 @@ export default function Filters({
   const ratings = deduplicate(
     productList
       .filter(product => !!product.rating)
-      .map(product => Math.floor(product.rating)).sort()
+      .map(product => Math.floor(product.rating))
+      .sort(),
   )
 
   const categoryHandler = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -98,7 +99,9 @@ export default function Filters({
         ))}
       </Dropdown>
 
-      <Dropdown onChange={(e: ChangeEvent<HTMLSelectElement>) => priceHandler(e)}>
+      <Dropdown
+        onChange={(e: ChangeEvent<HTMLSelectElement>) => priceHandler(e)}
+      >
         <option>Ascending</option>
         <option selected>Descending</option>
       </Dropdown>
@@ -129,8 +132,8 @@ export default function Filters({
 }
 
 const Dropdown = styled.select`
-padding: 16px;
-margin-right: 16px;
-border-radius: 8px;
-border-color: rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin-right: 16px;
+  border-radius: 8px;
+  border-color: rgba(0, 0, 0, 0.1);
 `

@@ -7,10 +7,10 @@ import ProductCard from '../components/ProductCard'
 import Searchbar from '../components/Searchbar'
 import {
   Container,
+  Info,
   ProductListContainer,
   Section,
   Title,
-  Info
 } from '../components/Styled-Components/Styled-Components'
 import { IFilters } from '../models/Filters'
 import { IProduct } from '../models/Product'
@@ -87,13 +87,13 @@ export default function Home({ productList }: { productList: IProduct[] }) {
       <ProductListContainer>
         {list.map(product => (
           <Link href={`/products/${product.id}`} key={product.id}>
-            <a style={{ textDecoration: "none" }}>
+            <a style={{ textDecoration: 'none' }}>
               <ProductCard {...product} />
             </a>
           </Link>
         ))}
       </ProductListContainer>
-    </Container >
+    </Container>
   )
 }
 
