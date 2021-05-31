@@ -4,10 +4,10 @@ Ecommerce catalog with Next.js, TypeScript, Styled Components and the [Makeup Ap
 
 To set up project:
 
->Clone
+> Clone
 
->yarn
+> yarn
 
->yarn dev
+> yarn dev
 
-
+If you get a `Server Error` is because the API is down. Just wait, it she will come back :)
