@@ -128,18 +128,21 @@ const ProductPageImage = styled.img`
 
 const ProductPageLayout = styled.div`
   display: flex;
+  height: 100vh;
+  align-items: center;
+  @media (max-width: 768px) {
+   flex-direction: column;
+  }
 `
 
 const LeftColumn = styled.div`
   width: 50%;
-  background-color: green;
   @media (max-width: 768px) {
     width: 100%;
   }
 `
 const RightColumn = styled.div`
   width: 50%;
-  backgroun-color: red;
   @media (max-width: 768px) {
     width: 100%;
   }

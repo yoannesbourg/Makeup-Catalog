@@ -1,4 +1,6 @@
 import { ChangeEvent, useState } from 'react'
+import styled from 'styled-components'
+
 
 import { Section } from '../components/Styled-Components/Styled-Components'
 import { deduplicate } from '../helpers/deduplicate'
@@ -89,19 +91,19 @@ export default function Filters({
 
   return (
     <Section>
-      <select onChange={categoryHandler}>
+      <Dropdown onChange={categoryHandler}>
         <option selected>All categories</option>
         {categoryFilter.map((brand, i) => (
           <option key={i}>{brand}</option>
         ))}
-      </select>
+      </Dropdown>
 
-      <select onChange={(e: ChangeEvent<HTMLSelectElement>) => priceHandler(e)}>
+      <Dropdown onChange={(e: ChangeEvent<HTMLSelectElement>) => priceHandler(e)}>
         <option>Ascending</option>
         <option selected>Descending</option>
-      </select>
+      </Dropdown>
 
-      <select
+      <Dropdown
         onChange={(e: ChangeEvent<HTMLSelectElement>) => {
           typeHandler(e)
         }}
@@ -110,9 +112,9 @@ export default function Filters({
         {typeFilter.map((type, i) => (
           <option key={i}>{type}</option>
         ))}
-      </select>
+      </Dropdown>
 
-      <select
+      <Dropdown
         onChange={(e: ChangeEvent<HTMLSelectElement>) => {
           ratingHandler(e)
         }}
@@ -121,7 +123,14 @@ export default function Filters({
         {ratings.map(rating => (
           <option key={rating}>{rating}</option>
         ))}
-      </select>
+      </Dropdown>
     </Section>
   )
 }
+
+const Dropdown = styled.select`
+padding: 16px;
+margin-right: 16px;
+border-radius: 8px;
+border-color: rgba(0, 0, 0, 0.1);
+`

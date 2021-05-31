@@ -16,6 +16,12 @@ export const Title = styled.h1`
   font-family: Roboto, sans-serif;
 `
 
+export const ProductTitle = styled.h3`
+  color: #505050;
+  font-size: 24px;
+  font-family: Roboto, sans-serif;
+`
+
 export const ProductListContainer = styled.div`
   margin-top: 36px;
   display: flex;
@@ -47,7 +53,8 @@ export const Info = styled.p`
 `
 
 export const Price = styled.p`
-  font-size: 1em;
+  font-size: 1.6em;
+  font-weight: bold;
   text-align: center;
   color: palevioletred;
   margin: 8px 0 0 0;
@@ -56,4 +63,7 @@ export const Price = styled.p`
 export const Wrapper = styled.div`
   margin: 24px 16px 0 0;
   max-width: 320px;
+`
+export const StyledLink = styled.a`
+  text-decoration: none;
 `

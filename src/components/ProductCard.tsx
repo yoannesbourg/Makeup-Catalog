@@ -1,25 +1,34 @@
 import styled from 'styled-components'
 
+
 import { IProduct } from '../models/Product'
 
 const ProductCard = (product: IProduct) => {
   if (!product) {
     return null
   }
-
   return (
     <Wrapper>
-      <Image src={product.api_featured_image} />
+      {product.api_featured_image &&
+        <Image src={product.api_featured_image} />
+      }
+      <Overlay>
+        {product.category &&
+          <Category>
+            {product.category}
+          </Category>
+        }
+      </Overlay>
       <div>
-        <Title>{product.name}</Title>
-        <Info>
-          <strong>{product.category}</strong>
-        </Info>
-        <Info>{product.brand}</Info>
-        <Info>{product.product_type}</Info>
-        <Info>{product.rating || null}</Info>
+        {product.name &&
+          <Title>{product.name}</Title>}
+
+        {product.rating &&
+
+          <Info>Rating: {product.rating}</Info>
+        }
         <Price>
-          {product.price || '0.0'},{product.price_sign}
+          {product.price ? product.price : '0.0'} €
         </Price>
       </div>
     </Wrapper>
@@ -27,9 +36,11 @@ const ProductCard = (product: IProduct) => {
 }
 
 export default ProductCard
+
 const Title = styled.h3`
   font-family: Roboto, sans-serif;
-  font-size: 1.6em;
+  font-size: 24px;
+  font-weight: 300;
   text-align: center;
   color: palevioletred;
   margin: 16px 0 0 0;
@@ -43,21 +54,41 @@ const Info = styled.p`
   margin: 8px 0 0 0;
 `
 
+const Category = styled.p`
+  color: white;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  margin: 8px 0 0 0;
+  background-color: palevioletred;
+  border-radius: 4px;
+  padding: 4px;
+`
+
 const Price = styled.p`
-  font-size: 1em;
+  font-size: 24px;
   text-align: center;
   color: palevioletred;
   margin: 8px 0 0 0;
 `
 
 const Image = styled.img`
-    width: 280px;
-    height: 280px;
-    objet-fit: cover;
-}
+  width: 280px;
+  height: 280px;
+  objet-fit: cover;
+`
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 32px;
+  transition: .5s ease;
 `
 
 const Wrapper = styled.div`
-  margin: 24px 16px 0 0;
-  max-width: 320px;
+  margin: 24px 24px 0 0;
+  width: 320px;
+  height: 400px;
+  position: relative;
 `
