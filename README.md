@@ -10,4 +10,4 @@ To set up project:
 
 > yarn dev
 
-If you get a `Server Error` is because the API is down. Just wait, it she will come back :)
+If you get a `Server Error` is because the API is down. Just wait, she will come back :)
