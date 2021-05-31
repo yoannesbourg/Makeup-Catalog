@@ -98,14 +98,30 @@ export default function Home({ productList }: { productList: IProduct[] }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch(
-    'http://makeup-api.herokuapp.com/api/v1/products.json',
-  )
-  const productList: IProduct[] = await res.json()
+  try {
+    const res = await fetch(
+      'http://makeup-api.herokuapp.com/api/v1/products.json',
+    )
+    const productList: IProduct[] = await res.json()
 
-  return {
-    props: {
-      productList,
-    },
+
+    if (!productList) {
+      return {
+        notFound: true,
+      }
+    }
+
+    return {
+      props: {
+        productList,
+      },
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      props: {
+
+      },
+    }
   }
 }
