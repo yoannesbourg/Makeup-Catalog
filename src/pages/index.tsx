@@ -36,28 +36,27 @@ export default function Home({ productList }: { productList: IProduct[] }) {
   }
 
   useEffect(() => {
-    if (productList.length) {
-      const filteredList = productList
-        .filter(product => product.name.toLowerCase().includes(filters.search))
-        .sort((a, b) =>
-          filters.price
-            ? Number(a.price) - Number(b.price)
-            : Number(b.price) - Number(a.price),
-        )
-        .filter(product =>
-          !filters.category ? product : product.category === filters.category,
-        )
-        .filter(product =>
-          !filters.product_type
-            ? product
-            : product.product_type === filters.product_type,
-        )
-        .filter(product =>
-          !filters.rating ? product : product.rating === filters.rating,
-        )
+    const filteredList = productList
+      .filter(product => product.name.toLowerCase().includes(filters.search))
+      .sort((a, b) =>
+        filters.price
+          ? Number(a.price) - Number(b.price)
+          : Number(b.price) - Number(a.price),
+      )
+      .filter(product =>
+        !filters.category ? product : product.category === filters.category,
+      )
+      .filter(product =>
+        !filters.product_type
+          ? product
+          : product.product_type === filters.product_type,
+      )
+      .filter(product =>
+        !filters.rating ? product : product.rating === filters.rating,
+      )
 
-      setList(filteredList)
-    }
+    setList(filteredList)
+
   }, [filters])
 
   const handleFilterChanges = (filters: IFilters) => {

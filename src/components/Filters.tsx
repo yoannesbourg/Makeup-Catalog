@@ -7,7 +7,7 @@ import { deduplicate } from '../helpers/deduplicate'
 import { IFilters } from '../models/Filters'
 import { IProduct } from '../models/Product'
 
-export interface FiltersInterface {
+interface FiltersInterface {
   initialFilters: IFilters
   onFilterChange: (filters: IFilters) => void
   productList: IProduct[]
@@ -39,7 +39,6 @@ export default function Filters({
   const categoryHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     const categoryFilter =
       e.target.value === 'All categories' ? false : e.target.value
-    console.log(categoryFilter)
 
     setCategory(e.target.value)
     onFilterChange({
@@ -53,7 +52,6 @@ export default function Filters({
 
   const priceHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     const priceOrder = e.target.value === 'Ascending' ? true : false
-    console.log(e.target.value + ' ' + priceOrder)
     setPrice(priceOrder)
     onFilterChange({
       search: initialFilters.search,

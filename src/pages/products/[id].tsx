@@ -53,7 +53,7 @@ const Details = ({ product }: { product: IProduct[] }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   }
-  console.log(product)
+
   return (
     <Container>
       <Section>
